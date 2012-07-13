@@ -8,20 +8,17 @@
 
 (function(){
 	
-	/* Private variables */
+	var galleryCounter = 0;
 	
-	var overlay = $('<div id="galleryOverlay">'),
-		slider = $('<div id="gallerySlider">'),
-		prevArrow = $('<a id="prevArrow"></a>'),
-		nextArrow = $('<a id="nextArrow"></a>'),
-		overlayVisible = false;
-		
-		
 	/* Creating the plugin */
-	
-	$.fn.touchTouch = function(){
-		
-		var placeholders = $([]),
+	$.fn.touchTouch = function() {
+	  var overlay = $('<div id="galleryOverlay_' + (galleryCounter++) + '">'),
+  		slider = $('<div id="gallerySlider">'),
+  		prevArrow = $('<a id="prevArrow"></a>'),
+  		nextArrow = $('<a id="nextArrow"></a>'),
+  		overlayVisible = false;
+    
+	  var placeholders = $([]),
 			index = 0,
 			items = this;
 		
