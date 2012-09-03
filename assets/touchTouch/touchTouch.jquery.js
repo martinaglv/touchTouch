@@ -12,11 +12,13 @@
 	
 	/* Creating the plugin */
 	$.fn.touchTouch = function() {
-	  var overlay = $('<div id="galleryOverlay_' + (galleryCounter++) + '">'),
+	  var overlay = $('<div id="galleryOverlay_' + (galleryCounter++) + '"'),
   		slider = $('<div id="gallerySlider">'),
   		prevArrow = $('<a id="prevArrow"></a>'),
   		nextArrow = $('<a id="nextArrow"></a>'),
   		overlayVisible = false;
+    
+    overlay.addClass('galleryOverlay');
     
 	  var placeholders = $([]),
 			index = 0,
