@@ -1,6 +1,5 @@
-$(function(){
-	
+$(function(){	
 	// Initialize the gallery
-	$('#thumbs a').touchTouch();
-
+	$('#thumbs1 a').touchTouch();
+	$('#thumbs2 a').touchTouch();
 });
