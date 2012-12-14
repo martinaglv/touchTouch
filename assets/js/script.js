@@ -1,6 +1,6 @@
 $(function(){
 	
 	// Initialize the gallery
-	$('#thumbs a').touchTouch();
+	$('.thumbs a').touchTouch();
 
 });

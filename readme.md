@@ -20,12 +20,34 @@ After you do all this, simply call the gallery as a regular jQuery plugin:
 $(function(){
 
 	// Initialize the gallery
-	$('#thumbs a').touchTouch();
+	$('.thumbs a').touchTouch();
 
 });
 ```
 
 You must pass anchor elements which point to images in their href attributes for the gallery to work. In addition to conveying which images are to be displayed in the gallery, this also provides a graceful fallback in case JavaScript is not available.
+
+### Multiple Galleries
+
+To show specific sets of pictures, add a "data-gallery" attribute to <strong>either:</strong>
+
+Each of the anchor tags you want in that set, with a unique value. 
+
+```html
+	<a href="image.jpg" data-gallery="hongkong" title="Lion Rock"></a>
+```
+
+<strong>Or:</strong>
+
+Any ancestor containing the elements selected by the plugin. Note that this method takes priority if both are used on the same set.
+
+```html
+	<ul data-gallery="hongkong">
+		...
+	</ul>
+```
+
+Of course you can ignore all this and all selected elements will be displayed.
 
 ## License
 

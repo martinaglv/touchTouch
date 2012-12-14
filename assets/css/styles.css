@@ -76,13 +76,13 @@ header h2{
 	Thumbnails
 -----------------------------*/
 
-#thumbs{
+.thumbs{
 	width:480px;
 	margin:60px auto 35px;
 	text-align:center;
 }
 
-#thumbs a{
+.thumbs a{
 	width:120px;
 	height:120px;
 	display:inline-block;
@@ -101,7 +101,7 @@ header h2{
 	-webkit-background-size:cover;
 }
 
-#thumbs a:after{
+.thumbs a:after{
 	background-color: #303030;
     border-radius: 7px;
     bottom: -136px;
@@ -136,7 +136,7 @@ header h2{
 
 
 @media screen and (max-width: 960px) {
-	#thumbs, #credit{
+	.thumbs, #credit{
 		width:auto;
 	}
 	
