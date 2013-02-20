@@ -11,10 +11,10 @@
 
 	/* Private variables */
 	
-	var overlay = $('<div id="galleryOverlay">'),
-		slider = $('<div id="gallerySlider">'),
-		prevArrow = $('<a id="prevArrow"></a>'),
-		nextArrow = $('<a id="nextArrow"></a>'),
+	var overlay = $('<div id="galleryOverlay" />'),
+		slider = $('<div id="gallerySlider" />'),
+		prevArrow = $('<a id="prevArrow" />'),
+		nextArrow = $('<a id="nextArrow" />'),
 		overlayVisible = false;
 		
 		
@@ -34,7 +34,7 @@
 		// Creating a placeholder for each image
 		items.each(function(){
 
-			placeholders = placeholders.add($('<div class="placeholder">'));
+			placeholders = placeholders.add($('<div class="placeholder" />'));
 		});
 	
 		// Hide the gallery if the background is touched / clicked
@@ -245,7 +245,7 @@
 		
 		function loadImage(src, callback){
 
-			var img = $('<img>').on('load', function(){
+			var img = $('<img />').on('load', function(){
 				callback.call(img);
 			});
 			
