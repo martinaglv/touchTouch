@@ -7,7 +7,7 @@
  */
 
 
-(function(){
+(function($){
 
 	/* Private variables */
 	
