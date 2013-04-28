@@ -65,7 +65,22 @@
 	max-width: 100%;
 	vertical-align: middle;
 }
-
+#gallerySlider .placeholder .image-caption{
+	display:none;
+	line-height:normal;
+	margin:auto;
+	text-align:left;
+	padding:3px 0;
+	word-wrap:break-word;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	height:24px;
+	top:-30px;
+	background-color:#333;
+	opacity:0.8;
+	position:relative;
+	
+}
 #gallerySlider.rightSpring{
 	-moz-animation: rightSpring 0.3s;
 	-webkit-animation: rightSpring 0.3s;

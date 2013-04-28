@@ -21,11 +21,16 @@
 	/* Creating the plugin */
 	
 	$.fn.touchTouch = function(){
-
+		
 		var placeholders = $([]),
 			index = 0,
 			allitems = this,
 			items = allitems;
+		//locate the image captions
+		var captions = items.parent().find('p');
+		
+		//hide the caption after initialization
+		captions.remove();
 		
 		// Appending the markup to the page
 		overlay.hide().appendTo('body');
@@ -34,7 +39,7 @@
 		// Creating a placeholder for each image
 		items.each(function(){
 
-			placeholders = placeholders.add($('<div class="placeholder">'));
+			placeholders = placeholders.add($('<div class="placeholder"><p class="image-caption"></p>'));
 		});
 	
 		// Hide the gallery if the background is touched / clicked
@@ -129,14 +134,18 @@
 			// Find the position of this image
 			// in the collection
 			index = items.index(this);
+			
 			showOverlay(index);
 			showImage(index);
+			
 			
 			// Preload the next image
 			preload(index+1);
 			
 			// Preload the previous
 			preload(index-1);
+			
+			
 			
 		});
 		
@@ -206,7 +215,8 @@
 			overlayVisible = false;
 
 			//Clear preloaded items
-			$('.placeholder').empty();
+			//$('.placeholder').empty();
+			$('.placeholder img').remove();
 
 			//Reset possibly filtered items
 			items = allitems;
@@ -236,7 +246,16 @@
 			
 			// Call the load function with the href attribute of the item
 			loadImage(items.eq(index).attr('href'), function(){
-				placeholders.eq(index).html(this);
+				if(placeholders.eq(index).find('img').length == 0)
+				{
+					placeholders.eq(index).prepend(this);
+					
+						showCaption(index);	
+					
+			 		
+				}
+				
+				
 			});
 		}
 		
@@ -250,6 +269,7 @@
 			});
 			
 			img.attr('src',src);
+			
 		}
 		
 		function showNext(){
@@ -258,6 +278,7 @@
 			if(index+1 < items.length){
 				index++;
 				offsetSlider(index);
+				
 				preload(index+1);
 			}
 
@@ -276,6 +297,7 @@
 			if(index>0){
 				index--;
 				offsetSlider(index);
+				
 				preload(index-1);
 			}
 
@@ -286,6 +308,22 @@
 					slider.removeClass('leftSpring');
 				},500);
 			}
+		}
+		
+		function showCaption(idx){
+			
+			
+			var current_placeholder = placeholders.eq(idx);
+			
+			var img_width = current_placeholder.find('img').width();
+				
+				
+		    current_placeholder.find('.image-caption').css('width',img_width).text(captions.eq(idx).text()).show();
+			    
+			
+			
+		    
+			
 		}
 	};
 	
