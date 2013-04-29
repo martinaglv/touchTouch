@@ -189,7 +189,15 @@
 			}
 	
 		});
-		
+		//listen for orientationchange 
+		$(window).bind('orientationchange',function(){
+			
+			if($('.image-caption').length > 0)
+			{
+				//change the width of the caption div
+				$('.image-caption').css('width',$('.image-caption').prev('img').width());
+			}
+		});
 		
 		/* Private functions */
 		
