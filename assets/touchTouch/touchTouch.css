@@ -67,18 +67,27 @@
 }
 #gallerySlider .placeholder .image-caption{
 	display:none;
+	color:#aaa;
 	line-height:normal;
 	margin:auto;
 	text-align:left;
-	padding:3px 0;
+	padding:4px 0;
 	word-wrap:break-word;
 	text-overflow:ellipsis;
+	font-size:12px;
 	overflow:hidden;
-	height:24px;
-	top:-30px;
-	background-color:#333;
-	opacity:0.8;
+	height:14px;
+	top:-22px;
+	 /* Fallback for web browsers that don't support RGBa */
+	background-color:#000 transparent;
+	/* RGBa with 0.5 opacity */
+	background-color: rgba(0, 0, 0, 0.5);
+	/* For IE 5.5 - 7*/
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000, endColorstr=#7F000000);
+	/* For IE 8*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000, endColorstr=#7F000000)";
 	position:relative;
+	
 	
 }
 #gallerySlider.rightSpring{
