@@ -37,12 +37,13 @@
 		
 		// Creating a placeholder for each image
 		items.each(function(){
-            if($(this).attr('caption'))
-            {
-            	captions[$(this).index()] = $(this).attr('caption');
-            	$(this).removeAttr('caption');
-            }
-			placeholders = placeholders.add($('<div class="placeholder">'));
+				//if the anchor tag contains a caption attribute, add it into the array, then remove it from the anchor
+	            if($(this).attr('caption'))
+	            {
+	            	captions[$(this).index()] = $(this).attr('caption');
+	            	$(this).removeAttr('caption');
+	            }
+	            placeholders = placeholders.add($('<div class="placeholder">'));
 		});
 	    
 		// Hide the gallery if the background is touched / clicked
@@ -227,7 +228,7 @@
 
 			//Clear preloaded items
 			$('.placeholder').empty();
-			//$('.placeholder img').remove();
+			
 
 			//Reset possibly filtered items
 			items = allitems;
@@ -260,7 +261,8 @@
 			loadImage(items.eq(index).attr('href'), function(){
 				if(placeholders.eq(index).find('img').length == 0)
 				{
-					placeholders.eq(index).prepend(this);
+					placeholders.eq(index).html(this);
+					
 					if(hasCaption)
 					{
 						setTimeout(function(){
@@ -325,6 +327,7 @@
 				
 				//remove existing caption
 				$('.image-caption').remove();
+				
 				//if the image has the caption, add it
 				if(captions[index]!=undefined)
 				{
@@ -351,13 +354,15 @@
 			
 			
 			var current_placeholder = placeholders.eq(idx);
-			
+			//get the width of the current image
 			var img_width = current_placeholder.find('img').width();
 			
 			var aCaption = $('<p class="image-caption"></p>');
-			
+			//set the width and text content for the caption div
 			aCaption.text(captions[idx]).css('width',img_width)
+			
 			current_placeholder.append(aCaption);
+			
 		    aCaption.fadeIn('slow');
 			    
 			
