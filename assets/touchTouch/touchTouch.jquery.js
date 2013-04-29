@@ -37,7 +37,7 @@
 		
 		// Creating a placeholder for each image
 		items.each(function(){
-				//if the anchor tag contains a caption attribute, add it into the array, then remove it from the anchor
+		    //if the anchor tag contains a caption attribute, add it into the array, then remove it from the anchor
 	            if($(this).attr('caption'))
 	            {
 	            	captions[$(this).index()] = $(this).attr('caption');
@@ -140,7 +140,7 @@
 			index = items.index(this);
 			
 			showOverlay(index);
-			if(captions[index]!=undefined)
+			if(captions[index] != undefined)
 			{
 				showImage(index,true);
 			}
@@ -363,7 +363,7 @@
 			
 			current_placeholder.append(aCaption);
 			
-		    aCaption.fadeIn('slow');
+		    	aCaption.fadeIn('slow');
 			    
 			
 			
