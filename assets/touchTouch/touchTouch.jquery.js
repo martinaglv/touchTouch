@@ -25,12 +25,11 @@
 		var placeholders = $([]),
 			index = 0,
 			allitems = this,
-			items = allitems;
-		//locate the image captions
-		var captions = items.parent().find('p');
+			items = allitems,
+			captions=[];
 		
-		//hide the caption after initialization
-		captions.remove();
+		
+		
 		
 		// Appending the markup to the page
 		overlay.hide().appendTo('body');
@@ -38,10 +37,14 @@
 		
 		// Creating a placeholder for each image
 		items.each(function(){
-
-			placeholders = placeholders.add($('<div class="placeholder"><p class="image-caption"></p>'));
+            if($(this).attr('caption'))
+            {
+            	captions[$(this).index()] = $(this).attr('caption');
+            	$(this).removeAttr('caption');
+            }
+			placeholders = placeholders.add($('<div class="placeholder">'));
 		});
-	
+	    
 		// Hide the gallery if the background is touched / clicked
 		slider.append(placeholders).on('click',function(e){
 
@@ -136,7 +139,15 @@
 			index = items.index(this);
 			
 			showOverlay(index);
-			showImage(index);
+			if(captions[index]!=undefined)
+			{
+				showImage(index,true);
+			}
+			else
+			{
+				showImage(index);
+			}
+			
 			
 			
 			// Preload the next image
@@ -215,17 +226,18 @@
 			overlayVisible = false;
 
 			//Clear preloaded items
-			//$('.placeholder').empty();
-			$('.placeholder img').remove();
+			$('.placeholder').empty();
+			//$('.placeholder img').remove();
 
 			//Reset possibly filtered items
 			items = allitems;
 		}
 	
 		function offsetSlider(index){
-
+            
 			// This will trigger a smooth css transition
 			slider.css('left',(-index*100)+'%');
+			
 		}
 	
 		// Preload an image by its index in the items array
@@ -237,8 +249,8 @@
 		}
 		
 		// Show image in the slider
-		function showImage(index){
-	
+		function showImage(index,hasCaption){
+	        hasCaption = typeof hasCaption !== 'undefined'? hasCaption:false;
 			// If the index is outside the bonds of the array
 			if(index < 0 || index >= items.length){
 				return false;
@@ -249,8 +261,13 @@
 				if(placeholders.eq(index).find('img').length == 0)
 				{
 					placeholders.eq(index).prepend(this);
-					
-						showCaption(index);	
+					if(hasCaption)
+					{
+						setTimeout(function(){
+							showCaption(index);
+						},500);
+					}
+						
 					
 			 		
 				}
@@ -277,6 +294,15 @@
 			// If this is not the last image
 			if(index+1 < items.length){
 				index++;
+				//remove existing caption
+				$('.image-caption').remove();
+				//if the image has the caption, add it
+				if(captions[index]!=undefined)
+				{
+					setTimeout(function(){
+					showCaption(index);
+					},500);
+				}
 				offsetSlider(index);
 				
 				preload(index+1);
@@ -296,6 +322,17 @@
 			// If this is not the first image
 			if(index>0){
 				index--;
+				
+				//remove existing caption
+				$('.image-caption').remove();
+				//if the image has the caption, add it
+				if(captions[index]!=undefined)
+				{
+					setTimeout(function(){
+						showCaption(index);
+					},500);
+				}
+				
 				offsetSlider(index);
 				
 				preload(index-1);
@@ -316,9 +353,12 @@
 			var current_placeholder = placeholders.eq(idx);
 			
 			var img_width = current_placeholder.find('img').width();
-				
-				
-		    current_placeholder.find('.image-caption').css('width',img_width).text(captions.eq(idx).text()).show();
+			
+			var aCaption = $('<p class="image-caption"></p>');
+			
+			aCaption.text(captions[idx]).css('width',img_width)
+			current_placeholder.append(aCaption);
+		    aCaption.fadeIn('slow');
 			    
 			
 			
