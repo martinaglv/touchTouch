@@ -302,7 +302,7 @@
 				if(captions[index]!=undefined)
 				{
 					setTimeout(function(){
-					showCaption(index);
+						showCaption(index);
 					},500);
 				}
 				offsetSlider(index);
