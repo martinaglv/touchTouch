@@ -23,7 +23,32 @@
 #galleryOverlay.visible{
 	opacity:1;
 }
-
+#galleryOverlay #caption-container{
+	
+	display:none;
+	overflow:hidden;
+	position:absolute;
+	width:100%;
+	
+}
+#galleryOverlay #caption-content{
+	
+	display:block;
+	color:#aaa;
+	text-align:left;
+	padding:4px 5px;
+	margin:auto;
+	font-size:12px;
+	 /* Fallback for web browsers that don't support RGBa */
+	background-color:#000 transparent;
+	/* RGBa with 0.5 opacity */
+	background-color: rgba(0, 0, 0, 0.5);
+	/* For IE 5.5 - 7*/
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000, endColorstr=#7F000000);
+	/* For IE 8*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000, endColorstr=#7F000000)";
+	position:relative;
+}
 #gallerySlider{
 	height:100%;
 	
@@ -66,12 +91,12 @@
 	vertical-align: middle;
 }
 
-#gallerySlider.rightSpring{
+#gallerySlider.rightSpring, #galleryOverlay #caption-container.rightSpring{
 	-moz-animation: rightSpring 0.3s;
 	-webkit-animation: rightSpring 0.3s;
 }
 
-#gallerySlider.leftSpring{
+#gallerySlider.leftSpring, #galleryOverlay #caption-container.leftSpring{
 	-moz-animation: leftSpring 0.3s;
 	-webkit-animation: leftSpring 0.3s;
 }

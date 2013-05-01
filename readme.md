@@ -10,6 +10,7 @@ A jQuery 1.7+ plugin that makes it easy to display a set of photos on your site 
 * Supports swiping through photos;
 * Displays onscreen arrows and listens for arrow key presses on desktop browsers;
 * Supports multiple galleries;
+* Supports displaying image captions;
 
 ## How to use
 
@@ -50,6 +51,15 @@ Any ancestor containing the elements selected by the plugin. Note that this meth
 
 Of course you can ignore all this and all selected elements will be displayed.
 
+### Adding captions for the images
+
+To add a caption for an image, simply add a caption attribute within the anchor tag that points to the image.
+
+```html
+   <a href="image.jpg" data-gallery="hongkong" title="Lion Rock" caption="This is the caption for the image.jpg"></a>
+```
+
+If an image does not contain a caption, do not add the caption attribute within the anchor tag
 ## License
 
 Released under the MIT license
