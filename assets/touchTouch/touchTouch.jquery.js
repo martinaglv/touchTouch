@@ -15,7 +15,10 @@
 		slider = $('<div id="gallerySlider">'),
 		prevArrow = $('<a id="prevArrow"></a>'),
 		nextArrow = $('<a id="nextArrow"></a>'),
-		overlayVisible = false;
+		captionContainer = $('<div id="caption-container"></div>'),
+		captionContent = $('<div id="caption-content"></div>'),
+		overlayVisible = false,
+		resizeTimer = null;
 		
 		
 	/* Creating the plugin */
@@ -45,6 +48,12 @@
 	            }
 	            placeholders = placeholders.add($('<div class="placeholder">'));
 		});
+		
+		if(captions.length > 0)
+		{
+			//overlay.append('<div id="caption-container"><p id="caption"></p></div>');
+			captionContainer.append(captionContent).appendTo(overlay);
+		}
 	    
 		// Hide the gallery if the background is touched / clicked
 		slider.append(placeholders).on('click',function(e){
@@ -189,14 +198,28 @@
 			}
 	
 		});
+		//listen for resize event of the browser
+		$(window).bind('resize',function(){
+			
+			
+			if(resizeTimer) clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(function(){
+				if(captionContainer.is(":visible"))
+				{
+					
+					showCaption(index);
+				}
+			},100);
+			
+		});
 		//listen for orientationchange 
 		$(window).bind('orientationchange',function(){
-			
-			if($('.image-caption').length > 0)
+			if(captionContainer.is(":visible"))
 			{
-				//change the width of the caption div
-				$('.image-caption').css('width',$('.image-caption').prev('img').width());
+				showCaption(index);
 			}
+			
+			
 		});
 		
 		/* Private functions */
@@ -229,6 +252,12 @@
 			if(!overlayVisible){
 				return false;
 			}
+			if(captionContainer.is(":visible"))
+			{
+				
+				captionContent.text('');
+				captionContainer.hide();
+			}
 			
 			// Hide the overlay
 			overlay.hide().removeClass('visible');
@@ -237,7 +266,7 @@
 			//Clear preloaded items
 			$('.placeholder').empty();
 			
-
+			
 			//Reset possibly filtered items
 			items = allitems;
 		}
@@ -273,6 +302,7 @@
 					
 					if(hasCaption)
 					{
+						
 						setTimeout(function(){
 							showCaption(index);
 						},500);
@@ -304,25 +334,36 @@
 			// If this is not the last image
 			if(index+1 < items.length){
 				index++;
-				//remove existing caption
-				$('.image-caption').remove();
-				//if the image has the caption, add it
+				
+				offsetSlider(index);
+				//always hide the caption before showing it
+				if(captions.length > 0)
+				{
+					captionContainer.hide();
+				}
+				//if the current image has a caption, show it
 				if(captions[index]!=undefined)
 				{
+					
 					setTimeout(function(){
 						showCaption(index);
+						
 					},500);
 				}
-				offsetSlider(index);
 				
 				preload(index+1);
+				
 			}
 
 			else{
 				// Trigger the spring animation
 				slider.addClass('rightSpring');
+				captionContainer.addClass('rightSpring');
+				
 				setTimeout(function(){
 					slider.removeClass('rightSpring');
+					captionContainer.removeClass('rightSpring');
+					
 				},500);
 			}
 		}
@@ -333,51 +374,54 @@
 			if(index>0){
 				index--;
 				
-				//remove existing caption
-				$('.image-caption').remove();
-				
-				//if the image has the caption, add it
+				offsetSlider(index);
+				//always hide the caption before showing it
+				if(captions.length > 0)
+				{
+					captionContainer.hide();
+				}
+				//if the current image has a caption, show it
 				if(captions[index]!=undefined)
 				{
+					
 					setTimeout(function(){
 						showCaption(index);
+						
 					},500);
 				}
 				
-				offsetSlider(index);
-				
 				preload(index-1);
+				
 			}
 
 			else{
 				// Trigger the spring animation
 				slider.addClass('leftSpring');
+				captionContainer.addClass('leftSpring');
+				
 				setTimeout(function(){
 					slider.removeClass('leftSpring');
+					captionContainer.removeClass('leftSpring');
+					
 				},500);
 			}
 		}
 		
 		function showCaption(idx){
-			
-			
-			var current_placeholder = placeholders.eq(idx);
-			//get the width of the current image
-			var img_width = current_placeholder.find('img').width();
-			
-			var aCaption = $('<p class="image-caption"></p>');
-			//set the width and text content for the caption div
-			aCaption.text(captions[idx]).css('width',img_width)
-			
-			current_placeholder.append(aCaption);
-			
-		    	aCaption.fadeIn('slow');
-			    
-			
-			
-		    
-			
+	
+				var current_placeholder = placeholders.eq(idx);
+				var current_img = current_placeholder.find('img');
+				//get the padding of the caption content
+			    var padding = parseInt(captionContent.css('padding-left'));
+			    //set the content and width of the caption
+				captionContent.text(captions[idx]).css('width',current_img.width()- 2 * padding);
+				//set the distance from the bottom for the caption container
+				//fade in the caption container
+				captionContainer.css({'bottom':current_placeholder.height() - current_img.height() - current_img.position().top}).fadeIn('slow');
+	
 		}
+		
+		
 	};
 	
 })(jQuery);
