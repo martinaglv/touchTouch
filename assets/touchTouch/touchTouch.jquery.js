@@ -51,7 +51,6 @@
 		
 		if(captions.length > 0)
 		{
-			//overlay.append('<div id="caption-container"><p id="caption"></p></div>');
 			captionContainer.append(captionContent).appendTo(overlay);
 		}
 	    
@@ -412,8 +411,8 @@
 				var current_placeholder = placeholders.eq(idx);
 				var current_img = current_placeholder.find('img');
 				//get the padding of the caption content
-			    var padding = parseInt(captionContent.css('padding-left'));
-			    //set the content and width of the caption
+			    	var padding = parseInt(captionContent.css('padding-left'));
+			    	//set the content and width of the caption
 				captionContent.text(captions[idx]).css('width',current_img.width()- 2 * padding);
 				//set the distance from the bottom for the caption container
 				//fade in the caption container
