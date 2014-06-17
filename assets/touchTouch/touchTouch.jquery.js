@@ -257,39 +257,31 @@
 		}
 
 		function showNext(){
+			
+			index = (index + 1) % items.length;
+			offsetSlider(index);
 
-			// If this is not the last image
-			if(index+1 < items.length){
-				index++;
-				offsetSlider(index);
-				preload(index+1);
-			}
-
-			else{
-				// Trigger the spring animation
-				slider.addClass('rightSpring');
-				setTimeout(function(){
-					slider.removeClass('rightSpring');
-				},500);
-			}
+			var nextindex = (index + 1) % items.length;
+			preload(nextindex);
+			
 		}
-
+		
 		function showPrevious(){
-
-			// If this is not the first image
-			if(index>0){
-				index--;
-				offsetSlider(index);
-				preload(index-1);
+			
+			index = (index - 1);
+			if( index < 0) {
+				index = items.length + index;
 			}
-
-			else{
-				// Trigger the spring animation
-				slider.addClass('leftSpring');
-				setTimeout(function(){
-					slider.removeClass('leftSpring');
-				},500);
+							
+			offsetSlider(index);
+			
+			var nextindex = index -1;
+			if( nextindex < 0) {
+				nextindex = items.length + nextindex;
 			}
+			
+			preload(nextindex);
+			
 		}
 	};
 
