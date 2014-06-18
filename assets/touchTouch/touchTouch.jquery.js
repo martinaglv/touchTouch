@@ -180,6 +180,7 @@
 		function showOverlay(index){
 			// If the overlay is already shown, exit
 			if (overlayVisible){
+				offsetSlider(index);
 				return false;
 			}
 
