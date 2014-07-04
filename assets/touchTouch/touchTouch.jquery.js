@@ -7,22 +7,17 @@
  */
 
 
-(function(){
-
-	/* Private variables */
-
-	var overlay = $('<div id="galleryOverlay">'),
-		slider = $('<div id="gallerySlider">'),
-		prevArrow = $('<a id="prevArrow"></a>'),
-		nextArrow = $('<a id="nextArrow"></a>'),
-		overlayVisible = false;
-
+(function($){
 
 	/* Creating the plugin */
 
 	$.fn.touchTouch = function(){
-
-		var placeholders = $([]),
+		var overlay = $('<div class="touchtouch-galleryOverlay">'),
+			slider = $('<div class="touchtouch-gallerySlider">'),
+			prevArrow = $('<a class="touchtouch-prevArrow"></a>'),
+			nextArrow = $('<a class="touchtouch-nextArrow"></a>'),
+			overlayVisible = false,
+			placeholders = $([]),
 			index = 0,
 			allitems = this,
 			items = allitems;
@@ -34,7 +29,7 @@
 		// Creating a placeholder for each image
 		items.each(function(){
 
-			placeholders = placeholders.add($('<div class="placeholder">'));
+			placeholders = placeholders.add($('<div class="touchtouch-placeholder">'));
 		});
 
 		// Hide the gallery if the background is touched / clicked

@@ -1,6 +1,6 @@
 /* The gallery overlay */
 
-#galleryOverlay{
+.touchtouch-galleryOverlay{
 	width:100%;
 	height:100%;
 	position:fixed;
@@ -12,19 +12,17 @@
 	background-color:rgba(0,0,0,0.8);
 	overflow:hidden;
 	display:none;
-	
-	-moz-transition:opacity 1s ease;
 	-webkit-transition:opacity 1s ease;
 	transition:opacity 1s ease;
 }
 
 /* This class will trigger the animation */
 
-#galleryOverlay.visible{
+.touchtouch-galleryOverlay.visible{
 	opacity:1;
 }
 
-#gallerySlider{
+.touchtouch-gallerySlider{
 	height:100%;
 	
 	left:0;
@@ -33,13 +31,11 @@
 	width:100%;
 	white-space: nowrap;
 	position:absolute;
-	
-	-moz-transition:left 0.4s ease;
 	-webkit-transition:left 0.4s ease;
 	transition:left 0.4s ease;
 }
 
-#gallerySlider .placeholder{
+.touchtouch-gallerySlider .touchtouch-placeholder{
 	background: url("preloader.gif") no-repeat center center;
 	height: 100%;
 	line-height: 1px;
@@ -51,7 +47,7 @@
 /* The before element moves the
  * image halfway from the top */
 
-#gallerySlider .placeholder:before{
+.touchtouch-gallerySlider .touchtouch-placeholder:before{
 	content: "";
 	display: inline-block;
 	height: 50%;
@@ -59,35 +55,21 @@
 	margin-right:-1px;
 }
 
-#gallerySlider .placeholder img{
+.touchtouch-gallerySlider .touchtouch-placeholder img{
 	display: inline-block;
 	max-height: 100%;
 	max-width: 100%;
 	vertical-align: middle;
 }
 
-#gallerySlider.rightSpring{
+.touchtouch-gallerySlider.rightSpring{
 	-moz-animation: rightSpring 0.3s;
 	-webkit-animation: rightSpring 0.3s;
 }
 
-#gallerySlider.leftSpring{
+.touchtouch-gallerySlider.leftSpring{
 	-moz-animation: leftSpring 0.3s;
 	-webkit-animation: leftSpring 0.3s;
-}
-
-/* Firefox Keyframe Animations */
-
-@-moz-keyframes rightSpring{
-	0%{		margin-left:0px;}
-	50%{	margin-left:-30px;}
-	100%{	margin-left:0px;}
-}
-
-@-moz-keyframes leftSpring{
-	0%{		margin-left:0px;}
-	50%{	margin-left:30px;}
-	100%{	margin-left:0px;}
 }
 
 /* Safari and Chrome Keyframe Animations */
@@ -106,7 +88,7 @@
 
 /* Arrows */
 
-#prevArrow,#nextArrow{
+.touchtouch-prevArrow,.touchtouch-nextArrow{
 	border:none;
 	text-decoration:none;
 	background:url('arrows.png') no-repeat;
@@ -118,22 +100,20 @@
 	
 	top:50%;
 	margin-top:-29px;
-	
-	-moz-transition:opacity 0.2s ease;
 	-webkit-transition:opacity 0.2s ease;
 	transition:opacity 0.2s ease;
 }
 
-#prevArrow:hover, #nextArrow:hover{
+.touchtouch-prevArrow:hover, .touchtouch-nextArrow:hover{
 	opacity:1;
 }
 
-#prevArrow{
+.touchtouch-prevArrow{
 	background-position:left top;
 	left:40px;
 }
 
-#nextArrow{
+.touchtouch-nextArrow{
 	background-position:right top;
 	right:40px;
 }
