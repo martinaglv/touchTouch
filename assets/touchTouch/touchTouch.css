@@ -63,13 +63,13 @@
 }
 
 .touchtouch-gallerySlider.rightSpring{
-	-moz-animation: rightSpring 0.3s;
 	-webkit-animation: rightSpring 0.3s;
+	animation: rightSpring 0.3s;
 }
 
 .touchtouch-gallerySlider.leftSpring{
-	-moz-animation: leftSpring 0.3s;
 	-webkit-animation: leftSpring 0.3s;
+	animation: leftSpring 0.3s;
 }
 
 /* Safari and Chrome Keyframe Animations */
@@ -81,6 +81,12 @@
 }
 
 @-webkit-keyframes leftSpring{
+	0%{		margin-left:0px;}
+	50%{	margin-left:30px;}
+	100%{	margin-left:0px;}
+}
+
+@keyframes leftSpring{
 	0%{		margin-left:0px;}
 	50%{	margin-left:30px;}
 	100%{	margin-left:0px;}
