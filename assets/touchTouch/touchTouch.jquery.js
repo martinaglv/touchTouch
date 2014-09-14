@@ -120,9 +120,9 @@
 				//Filter to check if item has an ancestory with data-gallery attribute
 				items = items.filter(function(){
 
-           			return $(this).parent().closest('[data-gallery]').length;
+					return $(this).parent().closest('[data-gallery]').length;
 
-           		});
+				});
 
 			}
 
