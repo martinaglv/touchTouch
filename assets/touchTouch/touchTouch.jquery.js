@@ -196,6 +196,7 @@
 
 			// Raise the visible flag
 			overlayVisible = true;
+			return true;
 		}
 
 		function hideOverlay(){
@@ -214,6 +215,7 @@
 
 			//Reset possibly filtered items
 			items = allitems;
+			return true;
 		}
 
 		function offsetSlider(index){
@@ -242,6 +244,7 @@
 			loadImage(items.eq(index).attr('href'), function(){
 				placeholders.eq(index).html(this);
 			});
+			return true;
 		}
 
 		// Load the image and execute a callback function.
