@@ -15,6 +15,7 @@
 		slider = $('<div id="gallerySlider">'),
 		prevArrow = $('<a id="prevArrow"></a>'),
 		nextArrow = $('<a id="nextArrow"></a>'),
+		closeButton = $('<a id="closeButton"></a>'), // optional, enable in CSS.
 		overlayVisible = false;
 
 
@@ -153,6 +154,12 @@
 			nextArrow.click(function(e){
 				e.preventDefault();
 				showNext();
+			});
+
+			overlay.append(closeButton);
+			closeButton.click(function(e){
+				e.preventDefault();
+				hideOverlay();
 			});
 		}
 
