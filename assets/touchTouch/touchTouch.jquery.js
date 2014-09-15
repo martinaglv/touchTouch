@@ -15,6 +15,7 @@
 		slider = $('<div id="gallerySlider">'),
 		prevArrow = $('<a id="prevArrow"></a>'),
 		nextArrow = $('<a id="nextArrow"></a>'),
+		closeButton = $('<a id="closeButton"></a>'), // optional, enable in CSS.
 		overlayVisible = false;
 
 
@@ -120,9 +121,9 @@
 				//Filter to check if item has an ancestory with data-gallery attribute
 				items = items.filter(function(){
 
-           			return $(this).parent().closest('[data-gallery]').length;
+					return $(this).parent().closest('[data-gallery]').length;
 
-           		});
+				});
 
 			}
 
@@ -153,6 +154,12 @@
 			nextArrow.click(function(e){
 				e.preventDefault();
 				showNext();
+			});
+
+			overlay.append(closeButton);
+			closeButton.click(function(e){
+				e.preventDefault();
+				hideOverlay();
 			});
 		}
 
@@ -196,6 +203,7 @@
 
 			// Raise the visible flag
 			overlayVisible = true;
+			return true;
 		}
 
 		function hideOverlay(){
@@ -214,6 +222,7 @@
 
 			//Reset possibly filtered items
 			items = allitems;
+			return true;
 		}
 
 		function offsetSlider(index){
@@ -242,6 +251,7 @@
 			loadImage(items.eq(index).attr('href'), function(){
 				placeholders.eq(index).html(this);
 			});
+			return true;
 		}
 
 		// Load the image and execute a callback function.

@@ -106,7 +106,7 @@
 
 /* Arrows */
 
-#prevArrow,#nextArrow{
+#prevArrow,#nextArrow,#closeButton{
 	border:none;
 	text-decoration:none;
 	background:url('arrows.png') no-repeat;
@@ -124,7 +124,7 @@
 	transition:opacity 0.2s ease;
 }
 
-#prevArrow:hover, #nextArrow:hover{
+#prevArrow:hover, #nextArrow:hover, #closeButton:hover{
 	opacity:1;
 }
 
@@ -136,4 +136,13 @@
 #nextArrow{
 	background-position:right top;
 	right:40px;
+}
+
+/* Enable the close button by overriding #closeButton{top:NNNpx;} in your css. Try
+ * 100px as a first guess if you're not sure where to position the close button.
+ */
+#closeButton{
+	background-position:-43px 0px;
+	top:-1000px;
+	right:43px;
 }
