@@ -15,6 +15,7 @@
 		slider = $('<div id="gallerySlider">'),
 		prevArrow = $('<a id="prevArrow"></a>'),
 		nextArrow = $('<a id="nextArrow"></a>'),
+                closeOverlay = $('<a id="closeOverlay">X</a>'),
 		overlayVisible = false;
 
 
@@ -31,6 +32,10 @@
 		overlay.hide().appendTo('body');
 		slider.appendTo(overlay);
 
+                // Append closeOverlay to overlay
+                overlay.append(closeOverlay);
+
+
 		// Creating a placeholder for each image
 		items.each(function(){
 
@@ -45,6 +50,11 @@
 			}
 		});
 
+               // Hide the gallery if the closeOverlay is touched / clicked
+                $(closeOverlay).on('click', function(e){
+			hideOverlay();
+                });
+ 
 		// Listen for touch events on the body and check if they
 		// originated in #gallerySlider img - the images in the slider.
 		$('body').on('touchstart', '#gallerySlider img', function(e){
@@ -233,27 +243,53 @@
 		// Show image in the slider
 		function showImage(index){
 
-			// If the index is outside the bonds of the array
-			if(index < 0 || index >= items.length){
-				return false;
-			}
-
-			// Call the load function with the href attribute of the item
-			loadImage(items.eq(index).attr('href'), function(){
-				placeholders.eq(index).html(this);
-			});
+	         // If the index is outside the bonds of the array
+		 if(index < 0 || index >= items.length){
+			return false;
+	          }
+     		 // Call the load function with the href attribute of the item
+		 loadImage(items.eq(index).attr('href'),items.eq(index).attr('link'),items.eq(index).attr('title'),items.eq(index).attr('caption'), function(){
+		       placeholders.eq(index).html(this);
+                       // Appending div to show the other contents
+                       placeholders.eq(index).append('<div class="gallery_content"/>');
+                       placeholders.eq(index).find('.gallery_content').append('<span class="other_contents"/>');
+                       // Checking link attribute if defind then showing in the gallery
+		       if(placeholders.eq(index).find('img').attr('link') != '' && placeholders.eq(index).find('img').attr('link') != undefined){
+                            placeholders.eq(index).find('.other_contents').append('<a class="image_link" href="'+placeholders.eq(index).find('img').attr('link')+'">GO TO THE SITE</a>');
+                          }
+                       // Checking the title attribute for image, and displaying the title 
+    		       if(placeholders.eq(index).find('img').attr('title') != '' && placeholders.eq(index).find('img').attr('title') != undefined){
+                            placeholders.eq(index).find('.other_contents').append('<p class="image_title">'+placeholders.eq(index).find('img').attr('title')+'</p>');
+		          }
+                       // Checking the caption attr, if availabe then displaying
+		       if(placeholders.eq(index).find('img').attr('caption') != '' && placeholders.eq(index).find('img').attr('caption') != undefined){
+                            placeholders.eq(index).find('.other_contents').append('<p class="image_caption">'+placeholders.eq(index).find('img').attr('caption')+'</p>');
+		         }		
+		  });
 		}
 
 		// Load the image and execute a callback function.
 		// Returns a jQuery object
 
-		function loadImage(src, callback){
+		function loadImage(src, link, title, caption, callback){
 
 			var img = $('<img>').on('load', function(){
 				callback.call(img);
 			});
-
 			img.attr('src',src);
+                        if(link != '' && link != undefined){
+                          img.attr('link',link);
+			}
+			if(caption != '' && caption != undefined){
+                          img.attr('caption',caption);
+			}
+			if(title != '' && title != undefined){
+                          img.attr('title',title);
+                          img.attr('alt', title)
+                        }
+			else{
+                          img.attr('alt', "")
+		       }
 		}
 
 		function showNext(){
