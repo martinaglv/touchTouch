@@ -51,11 +51,7 @@
 	            }
 	            placeholders = placeholders.add($('<div class="placeholder">'));
 		});
-		//console.log(captions);
-		/*if(captions.length > 0)
-		{
-			captionContainer.append(captionContent).appendTo(overlay);
-		}*/
+		
 	    captionContainer.append(captionContent).appendTo(overlay);
 		// Hide the gallery if the background is touched / clicked
 		slider.append(placeholders).on('click',function(e){
@@ -283,8 +279,7 @@
 		
 		// Show image in the slider
 		function showImage(index,preload=false){
-			//console.log(index);
-	        //hasCaption = typeof hasCaption !== 'undefined'? hasCaption:false;
+			
 			// If the index is outside the bonds of the array
 			if(index < 0 || index >= items.length){
 				return false;
@@ -297,6 +292,7 @@
 				{
 					placeholders.eq(index).html(this);
 					
+					//only show the caption if the image isn't preloaded
 					if(!preload)
 					{
 						setTimeout(function(){
@@ -413,7 +409,7 @@
 					//fade in the caption container
 					captionContainer.css({'bottom':current_placeholder.height() - current_img.height() - current_img.position().top}).fadeIn('slow');
 				}
-				//console.log("show:",items.eq(idx));
+				
 				
 	
 		}
