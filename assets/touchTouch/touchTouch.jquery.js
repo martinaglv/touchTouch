@@ -28,8 +28,8 @@
 		var placeholders = $([]),
 			index = 0,
 			allitems = this,
-			items = allitems,
-			captions=[];
+			items = allitems;
+			
 		
 		
 		
@@ -43,17 +43,20 @@
 		    //if the anchor tag contains a caption attribute, add it into the array, then remove it from the anchor
 	            if($(this).attr('caption'))
 	            {
-	            	captions[$(this).index()] = $(this).attr('caption');
-	            	$(this).removeAttr('caption');
+	            	//captions[$(this).index()] = $(this).attr('caption');
+	            	
+					$(this).data('caption',$(this).attr('caption'));
+					//console.log($(this).data('caption'));
+					$(this).removeAttr('caption');
 	            }
 	            placeholders = placeholders.add($('<div class="placeholder">'));
 		});
-		
-		if(captions.length > 0)
+		//console.log(captions);
+		/*if(captions.length > 0)
 		{
 			captionContainer.append(captionContent).appendTo(overlay);
-		}
-	    
+		}*/
+	    captionContainer.append(captionContent).appendTo(overlay);
 		// Hide the gallery if the background is touched / clicked
 		slider.append(placeholders).on('click',function(e){
 
@@ -148,16 +151,9 @@
 			index = items.index(this);
 			
 			showOverlay(index);
-			if(captions[index] != undefined)
-			{
-				showImage(index,true);
-			}
-			else
-			{
-				showImage(index);
-			}
 			
 			
+			showImage(index);
 			
 			// Preload the next image
 			preload(index+1);
@@ -281,13 +277,14 @@
 		function preload(index){
 
 			setTimeout(function(){
-				showImage(index);
+				showImage(index,true);
 			}, 1000);
 		}
 		
 		// Show image in the slider
-		function showImage(index,hasCaption){
-	        hasCaption = typeof hasCaption !== 'undefined'? hasCaption:false;
+		function showImage(index,preload=false){
+			//console.log(index);
+	        //hasCaption = typeof hasCaption !== 'undefined'? hasCaption:false;
 			// If the index is outside the bonds of the array
 			if(index < 0 || index >= items.length){
 				return false;
@@ -295,17 +292,20 @@
 			
 			// Call the load function with the href attribute of the item
 			loadImage(items.eq(index).attr('href'), function(){
+				//console.log(index);
 				if(placeholders.eq(index).find('img').length == 0)
 				{
 					placeholders.eq(index).html(this);
 					
-					if(hasCaption)
+					if(!preload)
 					{
-						
 						setTimeout(function(){
+							
 							showCaption(index);
 						},500);
 					}
+					
+					
 						
 					
 			 		
@@ -336,19 +336,15 @@
 				
 				offsetSlider(index);
 				//always hide the caption before showing it
-				if(captions.length > 0)
-				{
+				
 					captionContainer.hide();
-				}
-				//if the current image has a caption, show it
-				if(captions[index]!=undefined)
-				{
-					
+				
+				
 					setTimeout(function(){
 						showCaption(index);
 						
 					},500);
-				}
+				
 				
 				preload(index+1);
 				
@@ -375,19 +371,15 @@
 				
 				offsetSlider(index);
 				//always hide the caption before showing it
-				if(captions.length > 0)
-				{
-					captionContainer.hide();
-				}
-				//if the current image has a caption, show it
-				if(captions[index]!=undefined)
-				{
-					
+				
+				captionContainer.hide();
+				
+				
 					setTimeout(function(){
 						showCaption(index);
 						
 					},500);
-				}
+				
 				
 				preload(index-1);
 				
@@ -407,16 +399,22 @@
 		}
 		
 		function showCaption(idx){
-	
-				var current_placeholder = placeholders.eq(idx);
-				var current_img = current_placeholder.find('img');
-				//get the padding of the caption content
-			    	var padding = parseInt(captionContent.css('padding-left'));
-			    	//set the content and width of the caption
-				captionContent.text(captions[idx]).css('width',current_img.width()- 2 * padding);
-				//set the distance from the bottom for the caption container
-				//fade in the caption container
-				captionContainer.css({'bottom':current_placeholder.height() - current_img.height() - current_img.position().top}).fadeIn('slow');
+				var caption = items.eq(idx).data('caption');
+				
+				if(caption != undefined && caption != '')
+				{
+					var current_placeholder = placeholders.eq(idx);
+					var current_img = current_placeholder.find('img');
+					//get the padding of the caption content
+						var padding = parseInt(captionContent.css('padding-left'));
+						//set the content and width of the caption
+					captionContent.text(caption).css('width',current_img.width()- 2 * padding);
+					//set the distance from the bottom for the caption container
+					//fade in the caption container
+					captionContainer.css({'bottom':current_placeholder.height() - current_img.height() - current_img.position().top}).fadeIn('slow');
+				}
+				//console.log("show:",items.eq(idx));
+				
 	
 		}
 		
