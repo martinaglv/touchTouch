@@ -149,7 +149,7 @@
 			showOverlay(index);
 			
 			
-			showImage(index);
+			showImage(index,false);
 			
 			// Preload the next image
 			preload(index+1);
@@ -278,7 +278,7 @@
 		}
 		
 		// Show image in the slider
-		function showImage(index,preload=false){
+		function showImage(index,preload){
 			
 			// If the index is outside the bonds of the array
 			if(index < 0 || index >= items.length){
@@ -287,7 +287,7 @@
 			
 			// Call the load function with the href attribute of the item
 			loadImage(items.eq(index).attr('href'), function(){
-				//console.log(index);
+				
 				if(placeholders.eq(index).find('img').length == 0)
 				{
 					placeholders.eq(index).html(this);
